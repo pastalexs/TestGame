@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/buttonRock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rock"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/buttonScissors"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/scissors"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/buttonPaper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/paper"
+        android:textAllCaps="false" />
+</LinearLayout>
