@@ -40,8 +40,8 @@ import butterknife.OnClick;
 public class MainActivity extends MvpActivity<MainContract.View, MainContract.UserActionsListener>
         implements PersonalFragment.MyTextListener, MainContract.View {
 
-    public final static String PERSONAL1 = "PERSONA1";
-    public final static String PERSONAL2 = "PERSONA2";
+    public final static String PERSONAL1 = "Warrior Left";
+    public final static String PERSONAL2 = "Warrior Right";
     public final static String NAME = "name";
     @Nullable
     @BindView(R.id.textViewStatus)
@@ -57,13 +57,12 @@ public class MainActivity extends MvpActivity<MainContract.View, MainContract.Us
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this, this);
         EventBus.getDefault().register(this);
-        getSupportActionBar().show();
         restartGame();
     }
 
     private void restartGame() {
         textViewFinish.setVisibility(View.GONE);
-        mTextViewStatus.setText("Start game");
+        mTextViewStatus.setText(getString(R.string.StartGame));
         Arena.deletInstance();
         Arena.getInstance(PERSONAL1, Personal.Pclass.ROCK,
                 PERSONAL2, Personal.Pclass.PAPER);
@@ -96,12 +95,13 @@ public class MainActivity extends MvpActivity<MainContract.View, MainContract.Us
 
     @OnClick(R.id.buttonFightingUnits)
     protected void onClickSelectUnits() {
-        //Intent intent = new Intent(this, UnitsActivity.class);
-        //startActivity(intent);
-        mTextViewStatus.setText("Fighting\n" + mTextViewStatus.getText());
+        mTextViewStatus.setText(getString(R.string.Fighting)+"\n" + mTextViewStatus.getText());
         Arena.fighting();
         personalFragment1.updatePerconalData();
         personalFragment2.updatePerconalData();
+
+        personalFragment1.buttonAllEnable(true);
+        personalFragment2.buttonAllEnable(true);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class MainActivity extends MvpActivity<MainContract.View, MainContract.Us
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(FinishGame event) {
-        textViewFinish.setText(event.getMessage());
+        textViewFinish.setText(getString(event.getIdMessage())+" "+event.getNameWinner());
         textViewFinish.setVisibility(View.VISIBLE);
         personalFragment1.getView().setEnabled(false);
         personalFragment2.getView().setEnabled(false);

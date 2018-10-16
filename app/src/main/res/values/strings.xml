@@ -1,14 +1,18 @@
 <resources>
     <string name="app_name">Test Game</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Name</string>
     <string name="myclass">Class</string>
     <string name="select_class">Select class</string>
     <string name="attack">Attack</string>
-    <string name="propertis">Propertis</string>
+    <string name="propertis">Protection</string>
     <string name="rock">Rock</string>
     <string name="scissors">Scissors</string>
     <string name="paper">Paper</string>
+    <string name="SelecClassUnit">Selec class unit</string>
+    <string name="Fighting">Fighting</string>
+    <string name="SelectUnit">Select unit</string>
+    <string name="WinnerIs">Winner is </string>
+    <string name="StartGame">Start game</string>
+    <string name="Draw">Draw. Died all</string><!--ничья -->
 </resources>

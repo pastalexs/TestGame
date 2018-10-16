@@ -25,12 +25,19 @@ public class ItemWarrionFragment extends DialogFragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
 
     private int mColumnCount = 1;
+
+
     private OnListFragmentInteractionListener mListener;
 
     public ItemWarrionFragment() {
     }
 
-
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.setTitle(R.string.SelecClassUnit);
+        return dialog;
+    }
     public static ItemWarrionFragment newInstance(int columnCount) {
         ItemWarrionFragment fragment = new ItemWarrionFragment();
         Bundle args = new Bundle();
@@ -38,7 +45,9 @@ public class ItemWarrionFragment extends DialogFragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+    public void setmListener(OnListFragmentInteractionListener mListener) {
+        this.mListener = mListener;
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,17 +78,6 @@ public class ItemWarrionFragment extends DialogFragment {
             recyclerView.setAdapter(new MyItemWarrionRecyclerViewAdapter(items, mListener));
         }
         return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-           /* throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");*/
-        }
     }
 
     @Override

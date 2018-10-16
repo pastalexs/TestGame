@@ -1,20 +1,20 @@
 package com.test.testgame.model.event;
 
 public class FinishGame {
-    private final String message;
+    private final int idMessage;
 
     private final String nameWinner;
 
-    public FinishGame(String message,String nameWinner) {
-        this.message = message;
-        this.nameWinner=nameWinner;
-    }
-
-    public String getMessage() {
-        return message;
+    public FinishGame(int idMessage, String nameWinner) {
+        this.idMessage = idMessage;
+        this.nameWinner = nameWinner;
     }
 
     public String getNameWinner() {
         return nameWinner;
+    }
+
+    public int getIdMessage() {
+        return idMessage;
     }
 }

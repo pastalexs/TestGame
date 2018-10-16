@@ -48,7 +48,8 @@ public class MyItemWarrionRecyclerViewAdapter extends RecyclerView.Adapter<MyIte
             public void onClick(View v) {
                 if (null != mListener) {
                     mListener.onListFragmentInteraction(holder.mItemPersonal);
-                    
+
+
                 }
             }
         });

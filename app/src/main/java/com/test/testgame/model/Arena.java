@@ -1,5 +1,8 @@
 package com.test.testgame.model;
 
+import android.content.res.Resources;
+
+import com.test.testgame.R;
 import com.test.testgame.model.event.FinishGame;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,9 +25,10 @@ public class Arena {
         }
         return arena;
     }
-    public static void deletInstance(){
-        if(arena!=null){
-            arena=null;
+
+    public static void deletInstance() {
+        if (arena != null) {
+            arena = null;
         }
     }
 
@@ -43,7 +47,7 @@ public class Arena {
         return null;
     }
 
-    public Personal getSelectPerson(String name, Personal.Pclass pclass){
+    public Personal getSelectPerson(String name, Personal.Pclass pclass) {
         return getWarrion(name).selectedClassUnit(pclass);
     }
 
@@ -51,7 +55,7 @@ public class Arena {
         Warrion warrion = getWarrion(name);
         if (warrion.fcommand) {
             warrion.command = attack;
-            warrion.fcommand=false;
+            warrion.fcommand = false;
             return true;
         }
         return false;
@@ -61,58 +65,51 @@ public class Arena {
         Warrion warrion = getWarrion(name);
         if (warrion.command == 0) {
             warrion.command = -protect;
-            warrion.fcommand=false;
+            warrion.fcommand = false;
             return true;
         }
         return false;
     }
 
     public static void fighting() {
-        if(!warrionLeft.fcommand&&
-                !warrionRight.fcommand){
-            if (warrionRight.command>0&&
-                    warrionLeft.command>0){
+        if (!warrionLeft.fcommand &&
+                !warrionRight.fcommand) {
+            if (warrionRight.command > 0 &&
+                    warrionLeft.command > 0) {
                 warrionLeft.lessHP(warrionRight.command);
                 warrionRight.lessHP(warrionLeft.command);
-            }else if(warrionRight.command>0&&
-                    warrionLeft.command<0){
-                int attack = warrionRight.command+warrionLeft.command;
-                if(attack>0) {
+            } else if (warrionRight.command > 0 &&
+                    warrionLeft.command < 0) {
+                int attack = warrionRight.command + warrionLeft.command;
+                if (attack > 0) {
                     warrionLeft.lessHP(attack);
                 }
-            }else if(warrionRight.command<0&&
-                    warrionLeft.command>0){
-                int attack = warrionRight.command+warrionLeft.command;
-                if(attack>0) {
+            } else if (warrionRight.command < 0 &&
+                    warrionLeft.command > 0) {
+                int attack = warrionRight.command + warrionLeft.command;
+                if (attack > 0) {
                     warrionRight.lessHP(attack);
                 }
             }
-            warrionLeft.command=0;
-            warrionRight.command=0;
-            warrionLeft.fcommand=true;
-            warrionRight.fcommand=true;
+            warrionLeft.command = 0;
+            warrionRight.command = 0;
+            warrionLeft.fcommand = true;
+            warrionRight.fcommand = true;
             checkWinner();
         }
     }
-    public static void checkWinner(){
+
+    public static void checkWinner() {
         boolean right = warrionRight.getCurrenciWarrion().isfLive();
-        boolean left =warrionLeft.getCurrenciWarrion().isfLive();
-        String messeng = null;
-        if(!right&&!left){
-            messeng = "Dead heat.Died all";
-            EventBus.getDefault().post(new FinishGame(messeng,""));
-        }else{
-            if(!right){
-                messeng ="Winner is "+warrionLeft.getName();
-                EventBus.getDefault().post(new FinishGame(messeng,warrionLeft.getName()));
-            }else if(!left){
-                messeng ="Winner is "+warrionRight.getName();
-                EventBus.getDefault().post(new FinishGame(messeng,warrionRight.getName()));
+        boolean left = warrionLeft.getCurrenciWarrion().isfLive();
+        if (!right && !left) {
+            EventBus.getDefault().post(new FinishGame(R.string.Draw, ""));
+        } else {
+            if (!right) {
+                EventBus.getDefault().post(new FinishGame(R.string.WinnerIs, warrionLeft.getName()));
+            } else if (!left) {
+                EventBus.getDefault().post(new FinishGame(R.string.WinnerIs, warrionRight.getName()));
             }
         }
     }
-    public boolean checkFighing(){
-        return warrionRight.fcommand&&warrionLeft.fcommand;
-    }
-
 }

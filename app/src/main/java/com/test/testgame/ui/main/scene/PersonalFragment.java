@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -26,6 +27,13 @@ import butterknife.OnClick;
 public class PersonalFragment extends MvpFragment<PersonalContract.View, PersonalContract.UserActionsListener>
         implements PersonalContract.View, ItemWarrionFragment.OnListFragmentInteractionListener {
 
+    @BindView(R.id.buttonSelect)
+    protected Button buttonSelect;
+    @BindView(R.id.buttonAttack)
+    protected Button buttonAttack;
+    @BindView(R.id.buttonPropertis)
+    protected Button buttonPropertis;
+
     @BindView(R.id.textViewName)
     protected TextView mNameText;
     @BindView(R.id.textViewClass)
@@ -41,9 +49,8 @@ public class PersonalFragment extends MvpFragment<PersonalContract.View, Persona
     private View view;
 
     private MyTextListener listener;
-    private Warrion mWarrion;
     private String name;
-    private Arena arena = Arena.getInstance();
+    private ItemWarrionFragment itemWarrionFragment;
 
     @Override
     public PersonalContract.UserActionsListener createPresenter() {
@@ -73,10 +80,14 @@ public class PersonalFragment extends MvpFragment<PersonalContract.View, Persona
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_personal, container, false);
         ButterKnife.bind(this, view);
-      //  getPresenter().getPersonal(Personal.Pclass.PAPER);
-        arena = Arena.getInstance();
-        updatePerconalData();
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updatePerconalData();
     }
 
     @Override
@@ -89,97 +100,56 @@ public class PersonalFragment extends MvpFragment<PersonalContract.View, Persona
         }
     }
 
-    public void setTestStatus(String text) {
-        listener.setText(name+": "+text);
-    }
-
-    private void updateIndecatorHealthPoint() {
-        mHealthPointText.setText(mWarrion.getHealthPoint() + "/" + mWarrion.getCurrenciWarrion().getMaxHealthPoint());
-        mProgressBar.setProgress(mWarrion.getHealthPoint());
-    }
-
     public void updatePerconalData() {
-        mWarrion = arena.getWarrion(name);
+        Warrion mWarrion = getPresenter().getWarrion(name);
         mProgressBar.setMax(mWarrion.getCurrenciWarrion().getMaxHealthPoint());
         mClassText.setText(mWarrion.getCurrenciWarrion().getPclass().toString());
         mNameText.setText(name);
         mAttackText.setText(String.valueOf(mWarrion.getAttack()));
         mProtectionText.setText(String.valueOf(mWarrion.getProtect()));
-        updateIndecatorHealthPoint();
+        mHealthPointText.setText(mWarrion.getHealthPoint() + "/"
+                + mWarrion.getCurrenciWarrion().getMaxHealthPoint());
+        mProgressBar.setProgress(mWarrion.getHealthPoint());
     }
 
-
+    public void buttonAllEnable(Boolean enable) {
+        buttonSelect.setEnabled(enable);
+        buttonAttack.setEnabled(enable);
+        buttonPropertis.setEnabled(enable);
+    }
 
     @OnClick(R.id.buttonSelect)
     protected void onClickSelect() {
-        new ItemWarrionFragment().show(getFragmentManager(),"tag");
-       /* View dialogView =
-                View.inflate(getContext(), R.layout.fragment_itemwarrion_list, null);
-        final AlertDialog alertDialog = new AlertDialog.Builder(getContext())
-                .setTitle("Selec class unit")
-                .setView(dialogView)
-                .create();
-        dialogView.findViewById(R.id.buttonPaper)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getPresenter().getPersonal(Personal.Pclass.PAPER);
-                        alertDialog.dismiss();
-                    }
-                });
-        dialogView.findViewById(R.id.buttonScissors)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getPresenter().getPersonal(Personal.Pclass.SCISSORS);
-                        alertDialog.dismiss();
-                    }
-                });
-        dialogView.findViewById(R.id.buttonRock)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getPresenter().getPersonal(Personal.Pclass.ROCK);
-                        alertDialog.dismiss();
-                    }
-                });
-        alertDialog.show();*/
+        itemWarrionFragment = ItemWarrionFragment.newInstance(4);
+        itemWarrionFragment.setmListener(this);
+        itemWarrionFragment.show(getFragmentManager(), "DialogSelecUnits");
     }
+
     @OnClick(R.id.buttonAttack)
     protected void onClickAttack() {
-        arena.warrionAttack(mWarrion.getName(),mWarrion.getAttack());
-        setTestStatus("Attack " + mWarrion.getAttack());
+        getPresenter().attackWarrion();
+        buttonAllEnable(false);
     }
+
     @OnClick(R.id.buttonPropertis)
     protected void onClickProtection() {
-        arena.warrionProtect(mWarrion.getName(),mWarrion.getProtect());
-        setTestStatus("Protection " + mWarrion.getProtect() );
+        getPresenter().protectionWarrion();
+        buttonAllEnable(false);
     }
 
     @Override
-    public void showAttack(){
-    }
-
-    @Override
-    public void showProtection() {
-
-    }
-
-    @Override
-    public void showSelectClass() {
-
-    }
-
-    @Override
-    public void setPersonal(Personal personal) {
-       // mWarrion = personal;
-        mWarrion.selectedClassUnit(personal.getPclass());
-        setTestStatus("Select unit " + mWarrion.getCurrenciWarrion().getPclass());
+    public void setPersonal() {
         updatePerconalData();
     }
 
     @Override
+    public void showCommandText(int id, String text) {
+        listener.setText(name + ": " + getString(id) + " " + text);
+    }
+
+    @Override
     public void onListFragmentInteraction(Personal item) {
+        itemWarrionFragment.dismiss();
         getPresenter().getPersonal(item.getPclass());
     }
 
