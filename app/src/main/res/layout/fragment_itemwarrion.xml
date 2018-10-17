@@ -5,7 +5,7 @@
     android:layout_marginStart="5dp"
     android:layout_marginEnd="5dp"
     android:layout_marginBottom="5dp"
-    android:background="?attr/colorButtonNormal"
+    android:background="@drawable/button_long_blue"
     android:clickable="true"
     android:orientation="horizontal">
 
@@ -16,7 +16,15 @@
         android:layout_margin="@dimen/text_margin"
         android:layout_weight="1"
         android:text="@string/myclass"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@android:color/background_light" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@drawable/sword" />
 
     <TextView
         android:id="@+id/attack"
@@ -25,7 +33,15 @@
         android:layout_margin="@dimen/text_margin"
         android:layout_weight="1"
         android:text="@string/attack"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@android:color/background_light" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:src="@drawable/shield" />
 
     <TextView
         android:id="@+id/protect"
@@ -34,6 +50,7 @@
         android:layout_margin="@dimen/text_margin"
         android:layout_weight="1"
         android:text="@string/attack"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textColor="@android:color/background_light" />
 
 </LinearLayout>

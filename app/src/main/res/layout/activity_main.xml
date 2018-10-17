@@ -9,8 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
+        android:background="@color/colorBackgroud"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
         <FrameLayout
             android:id="@+id/fragmentPersonal1"
@@ -18,7 +19,7 @@
             android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:layout="@layout/fragment_personal"/>
+            android:layout="@layout/fragment_personal" />
 
         <LinearLayout
             android:layout_width="250dp"
@@ -31,16 +32,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
+                android:background="@drawable/panel_blue"
                 android:ems="10"
                 android:inputType="textMultiLine"
                 android:maxLines="30"
+                android:padding="@dimen/text_margin"
                 android:scrollbarAlwaysDrawVerticalTrack="true"
-                android:scrollbars="vertical" />
+                android:scrollbars="vertical"
+                android:textColor="@android:color/background_light" />
 
             <Button
                 android:id="@+id/buttonFightingUnits"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_long_brown_pressed"
                 android:text="Fighting"
                 android:textAllCaps="false" />
         </LinearLayout>
@@ -54,16 +59,28 @@
             android:layout="@layout/fragment_personal" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewFinish"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layoutFinish"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorFinishText"
-        android:clickable="true"
-        android:gravity="center"
-        android:text="TextView"
-        android:textColor="@color/colorAccent"
-        android:textSize="24sp"
-        android:textStyle="normal"
-        android:visibility="visible" />
+        android:background="@color/colorMyBackgroudGlassy"
+        android:clickable="true">
+
+        <TextView
+            android:id="@+id/textViewFinish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_long_blue"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="@dimen/text_margin"
+            android:text="TextView"
+            android:textColor="@android:color/background_light"
+            android:textSize="24sp"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 </RelativeLayout>

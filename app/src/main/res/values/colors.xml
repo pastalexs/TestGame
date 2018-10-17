@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#00a997</color>
+    <color name="colorPrimary">#7a440f</color>
     <color name="colorPrimaryDark">#244362</color>
-    <color name="colorFinishText">#5800A997</color>
+    <color name="colorFinishText">#5800a997</color>
     <color name="colorAccent">#d81b60</color>
+    <color name="colorBackgroud">#69421b</color>
+    <color name="colorMyBackgroudGlassy">#b869421b</color>
 </resources>

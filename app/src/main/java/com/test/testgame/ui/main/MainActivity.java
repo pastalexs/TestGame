@@ -1,31 +1,22 @@
 package com.test.testgame.ui.main;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.support.constraint.ConstraintLayout;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hannesdorfmann.mosby3.mvp.MvpActivity;
-import com.hannesdorfmann.mosby3.mvp.MvpFragment;
 import com.test.testgame.R;
 import com.test.testgame.model.Arena;
 import com.test.testgame.model.Personal;
 import com.test.testgame.model.event.FinishGame;
-import com.test.testgame.ui.main.myfragment.TestFragment;
 import com.test.testgame.ui.main.scene.PersonalFragment;
-import com.test.testgame.ui.units.UnitsActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -40,14 +31,18 @@ import butterknife.OnClick;
 public class MainActivity extends MvpActivity<MainContract.View, MainContract.UserActionsListener>
         implements PersonalFragment.MyTextListener, MainContract.View {
 
-    public final static String PERSONAL1 = "Warrior Left";
-    public final static String PERSONAL2 = "Warrior Right";
+    public static String PERSONAL1 = "Warrior Left";
+    public static String PERSONAL2 = "Warrior Right";
     public final static String NAME = "name";
+    @BindView(R.id.buttonFightingUnits)
+    protected Button buttonFightingUnits;
     @Nullable
     @BindView(R.id.textViewStatus)
     protected TextView mTextViewStatus;
     @BindView(R.id.textViewFinish)
     protected TextView textViewFinish;
+    @BindView(R.id.layoutFinish)
+    protected ConstraintLayout layoutFinish;
     private PersonalFragment personalFragment1;
     private PersonalFragment personalFragment2;
 
@@ -61,7 +56,8 @@ public class MainActivity extends MvpActivity<MainContract.View, MainContract.Us
     }
 
     private void restartGame() {
-        textViewFinish.setVisibility(View.GONE);
+        buttonFightingUnits.setEnabled(false);
+        layoutFinish.setVisibility(View.GONE);
         mTextViewStatus.setText(getString(R.string.StartGame));
         Arena.deletInstance();
         Arena.getInstance(PERSONAL1, Personal.Pclass.ROCK,
@@ -93,15 +89,26 @@ public class MainActivity extends MvpActivity<MainContract.View, MainContract.Us
         mTextViewStatus.setText(text + "\n" + mTextViewStatus.getText());
     }
 
+    private int index = 0;
+    @Override
+    public void setOnClick() {
+        index++;
+        if (index >= 2) {
+            buttonFightingUnits.setEnabled(true);
+        }
+    }
+
     @OnClick(R.id.buttonFightingUnits)
     protected void onClickSelectUnits() {
-        mTextViewStatus.setText(getString(R.string.Fighting)+"\n" + mTextViewStatus.getText());
+        mTextViewStatus.setText(getString(R.string.Fighting) + "\n" + mTextViewStatus.getText());
         Arena.fighting();
         personalFragment1.updatePerconalData();
         personalFragment2.updatePerconalData();
 
         personalFragment1.buttonAllEnable(true);
         personalFragment2.buttonAllEnable(true);
+        buttonFightingUnits.setEnabled(false);
+        index=0;
     }
 
     @Override
@@ -113,8 +120,8 @@ public class MainActivity extends MvpActivity<MainContract.View, MainContract.Us
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(FinishGame event) {
-        textViewFinish.setText(getString(event.getIdMessage())+" "+event.getNameWinner());
-        textViewFinish.setVisibility(View.VISIBLE);
+        textViewFinish.setText(getString(event.getIdMessage()) + " " + event.getNameWinner());
+        layoutFinish.setVisibility(View.VISIBLE);
         personalFragment1.getView().setEnabled(false);
         personalFragment2.getView().setEnabled(false);
     }

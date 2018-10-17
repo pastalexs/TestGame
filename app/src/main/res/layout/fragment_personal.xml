@@ -5,14 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorBackgroud"
     tools:context=".ui.main.scene.PersonalFragment">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/text_margin"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="@dimen/text_margin"
         android:orientation="horizontal">
 
 
@@ -21,12 +22,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@android:color/background_light"
             android:text="@string/name" />
 
         <TextView
             android:id="@+id/textViewClass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/background_light"
             android:layout_weight="1"
             android:text="@string/myclass" />
 
@@ -37,13 +40,14 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp" />
 
     <TextView
         android:id="@+id/textViewHP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="100/100"
+        android:textColor="@android:color/background_light"
         android:textAlignment="center" />
 
     <LinearLayout
@@ -57,30 +61,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="?android:attr/textSelectHandle" />
+            android:src="@drawable/sword" />
 
         <TextView
             android:id="@+id/textViewAttack"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:text="10"
-            android:textAlignment="viewStart" />
+            android:textColor="@android:color/background_light"
+            android:gravity="center"
+            android:text="10" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@android:drawable/ic_lock_lock" />
+            android:src="@drawable/shield" />
 
         <TextView
             android:id="@+id/textViewProtection"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
+            android:textColor="@android:color/background_light"
             android:text="5"
-            android:textAlignment="textStart" />
+            android:gravity="center" />
 
     </LinearLayout>
 
@@ -97,6 +103,7 @@
         android:id="@+id/buttonSelect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_long_brown_pressed"
         android:text="@string/select_class"
         android:textAllCaps="false" />
 
@@ -104,6 +111,7 @@
         android:id="@+id/buttonAttack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_long_brown_pressed"
         android:text="@string/attack"
         android:textAllCaps="false" />
 
@@ -111,6 +119,7 @@
         android:id="@+id/buttonPropertis"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_long_brown_pressed"
         android:text="@string/propertis"
         android:textAllCaps="false" />
 </LinearLayout>

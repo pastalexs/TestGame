@@ -116,6 +116,7 @@ public class PersonalFragment extends MvpFragment<PersonalContract.View, Persona
         buttonSelect.setEnabled(enable);
         buttonAttack.setEnabled(enable);
         buttonPropertis.setEnabled(enable);
+        listener.setOnClick();
     }
 
     @OnClick(R.id.buttonSelect)
@@ -155,5 +156,6 @@ public class PersonalFragment extends MvpFragment<PersonalContract.View, Persona
 
     public interface MyTextListener {
         void setText(String text);
+        void setOnClick();
     }
 }

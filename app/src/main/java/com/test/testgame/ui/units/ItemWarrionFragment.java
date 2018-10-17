@@ -1,12 +1,9 @@
 package com.test.testgame.ui.units;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,6 +33,7 @@ public class ItemWarrionFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         dialog.setTitle(R.string.SelecClassUnit);
+        dialog.getWindow().setBackgroundDrawableResource(R.color.colorBackgroud);
         return dialog;
     }
     public static ItemWarrionFragment newInstance(int columnCount) {
